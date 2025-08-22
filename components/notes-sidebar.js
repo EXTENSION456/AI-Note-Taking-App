@@ -19,10 +19,12 @@ export default function NotesSidebar({ notes, setActiveNote }) {
       <Card>
         <CardHeader className="flex justify-between items-center ">
           <CardTitle>Card Title</CardTitle>
-          <Input
-            placeholder="Search your notes..."
-            className="w-[50%] focus-visible:ring-0"
-          />
+          {notes.length > 0 && (
+            <Input
+              placeholder="Search your notes..."
+              className="w-[50%] focus-visible:ring-0"
+            />
+          )}
         </CardHeader>
         <CardContent>
           {notes.length == 0 ? (
