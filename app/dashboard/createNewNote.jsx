@@ -16,9 +16,13 @@ import { Label } from "@/components/ui/label";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import axios from "axios";
+import { getNotes } from "../services/getNotes";
+import { toast } from "sonner";
+import { useNotes } from "@/context/NoteContext";
 
 export default function CreateNewNote() {
   const [title, setTitle] = useState("");
+  const { setNotes } = useNotes();
 
   const handleCreateNote = async () => {
     if (!title.trim()) {
@@ -27,14 +31,16 @@ export default function CreateNewNote() {
     }
 
     try {
-      const response = await axios.post(`/api/notes`, {
+      await axios.post(`/api/notes`, {
         title,
       });
 
-      console.log(response);
+      const response = await getNotes();
+      setNotes(response.data.notes);
       setTitle("");
+      toast.success("Successfully created");
     } catch (error) {
-      console.error(error);
+      toast.error(error.message);
     }
   };
 

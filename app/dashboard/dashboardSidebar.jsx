@@ -32,7 +32,7 @@ export default function DashboardSidebar() {
     fetchNotes();
   }, []);
 
-  console.log(notes);
+  console.log(notes, "notes");
 
   return (
     <div

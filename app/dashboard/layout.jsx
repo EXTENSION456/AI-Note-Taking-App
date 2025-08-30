@@ -6,6 +6,7 @@ import { getNotes } from "../services/getNotes";
 import { SessionProvider } from "next-auth/react";
 import DashboardSidebar from "./dashboardSidebar";
 import { NoteProvider } from "@/context/NoteContext";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,13 +24,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <SessionProvider>
-      <NoteProvider>
-        <div className="flex min-h-screen">
-          <DashboardSidebar />
-          <main className="flex-1 overflow-auto">{children}</main>
-        </div>
-      </NoteProvider>
-    </SessionProvider>
+    <div>
+      <SessionProvider>
+        <NoteProvider>
+          <div className="flex min-h-screen">
+            <DashboardSidebar />
+            <main className="flex-1 overflow-auto">{children}</main>
+          </div>
+        </NoteProvider>
+      </SessionProvider>
+      <Toaster richColors position="bottom-right" />
+    </div>
   );
 }

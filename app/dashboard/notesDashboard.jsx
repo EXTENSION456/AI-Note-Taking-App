@@ -6,6 +6,8 @@ import { FaRegStickyNote } from "react-icons/fa";
 const NotesDashboard = ({ collapsed }) => {
   const { notes, activeNote, setActiveNote } = useNotes();
 
+  console.log(notes, "notes aslfkjsaldjf");
+
   return (
     <div>
       {notes.map((note) => {
