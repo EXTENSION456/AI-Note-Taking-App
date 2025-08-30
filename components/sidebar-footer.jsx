@@ -1,23 +1,31 @@
-import { logout } from "@/app/actions/loginAction";
-import { auth } from "@/auth";
-import Image from "next/image";
+"use client";
 import { Button } from "./ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { signOut, useSession } from "next-auth/react";
 
-function getInitials(name) {
-  if (!name) return "U";
-  const parts = name.trim().split(/\s+/).slice(0, 2);
-  return parts.map((p) => p[0]?.toUpperCase() ?? "").join("") || "U";
-}
+export default function FooterSidebar({ collapsed }) {
+  const { data: session, status } = useSession();
 
-export default async function FooterSidebar() {
-  const session = await auth();
+  if (status === "loading") {
+    return <div>Loading session...</div>;
+  }
+
+  if (!session || status === "unauthenticated") {
+    return <div>Please log in</div>;
+  }
 
   return (
-    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-t-lg gap-2.5">
-      {session?.user ? (
+    <div
+      className={`flex items-center p-2 rounded-t-lg gap-2.5 transition-all duration-300
+      ${collapsed ? "w-0" : "justify-between"}`}
+    >
+      {session ? (
         <>
-          <div className="flex items-center gap-2.5 min-w-0">
+          <div
+            className={`flex items-center gap-2.5 min-w-0 ${
+              collapsed ? "" : ""
+            }`}
+          >
             <Avatar className="h-8 w-8 ring-2 ring-gray-200 shadow-sm hover:ring-gray-400 transition-all duration-300">
               <AvatarImage
                 src={session.user.image || ""}
@@ -28,26 +36,29 @@ export default async function FooterSidebar() {
               </AvatarFallback>
             </Avatar>
 
-            <div className="hidden sm:flex flex-col min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">
-                {session.user.name}
-              </p>
-              <p className="text-xs text-gray-500 truncate">
-                {session.user.email}
-              </p>
-            </div>
+            {!collapsed && (
+              <div className="sm:flex flex-col min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  {session.user.name}
+                </p>
+                <p className="text-xs text-gray-500 truncate">
+                  {session.user.email}
+                </p>
+              </div>
+            )}
           </div>
 
-          <form action={logout} className="flex-shrink-0">
-            <Button
-              type="submit"
-              variant="default"
-              size="sm"
-              className="cursor-pointer"
-            >
-              Logout
-            </Button>
-          </form>
+          <Button
+            type="submit"
+            variant="default"
+            size="sm"
+            className={`${
+              collapsed ? "p-2 h-auto w-auto" : "px-4"
+            } cursor-pointer bg-indigo-500 hover:bg-indigo-600`}
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
+            {!collapsed && "Logout"}
+          </Button>
         </>
       ) : (
         <p className="text-sm text-gray-500">Not logged in</p>

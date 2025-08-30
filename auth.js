@@ -69,14 +69,14 @@ export const {
   callbacks: {
     async jwt({ token, user }) {
       if (user && token) {
-        token.id = user._id;
+        token.id = user.id;
       }
       return token;
     },
 
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id;
+        session.user.id = token.sub;
       }
       return session;
     },
