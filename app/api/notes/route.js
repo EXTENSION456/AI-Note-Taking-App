@@ -169,3 +169,54 @@ export async function PUT(req) {
     );
   }
 }
+
+export async function DELETE(req) {
+  try {
+    await connectDb();
+
+    const session = await auth();
+
+    if (!session || !session.user.id) {
+      return NextResponse.json(
+        { success: false, message: "Not authenticated" },
+        { status: 401 }
+      );
+    }
+
+    const { noteId } = await req.json();
+
+    const note = await Notes.findOne({
+      _id: noteId,
+      userId: session.user.id,
+    });
+
+    if (!note) {
+      return NextResponse.json(
+        {
+          success: false,
+          msg: "Note not found or user not authorized to update it",
+        },
+        { status: 400 }
+      );
+    }
+
+    await Notes.findByIdAndDelete(note._id);
+
+    return NextResponse.json(
+      {
+        msg: "successfully deleted",
+        success: true,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error, " error while creating");
+    return NextResponse.json(
+      {
+        success: false,
+        msg: "server error",
+      },
+      { status: 500 }
+    );
+  }
+}

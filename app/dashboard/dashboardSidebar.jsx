@@ -32,8 +32,6 @@ export default function DashboardSidebar() {
     fetchNotes();
   }, []);
 
-  console.log(notes, "notes");
-
   return (
     <div
       className={`flex flex-col h-screen bg-sidebar-border border-r 
