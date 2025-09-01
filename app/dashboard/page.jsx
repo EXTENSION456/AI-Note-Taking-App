@@ -4,6 +4,7 @@ import NoteEmptyState from "./emptyState";
 import { useNotes } from "@/context/NoteContext";
 import { useSession } from "next-auth/react";
 import NoteEditor from "@/components/note-editor";
+// import NoteEditor from "@/components/note-editor";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();

@@ -19,6 +19,7 @@ const NotesDashboard = ({ collapsed }) => {
 
   const handleSubmit = async (note) => {
     try {
+      setActiveNote(null);
       await axios.delete(`/api/notes`, {
         data: {
           noteId: note?._id,

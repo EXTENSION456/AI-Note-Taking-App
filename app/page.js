@@ -34,10 +34,10 @@ export default function LandingPage() {
         </p>
         <div className="flex gap-4">
           <button className="px-6 py-3 rounded-2xl bg-white text-black font-medium hover:bg-gray-200 transition">
-            Get Started
+            <Link href="signup">Get Started</Link>
           </button>
           <button className="px-6 py-3 rounded-2xl border border-white text-white font-medium hover:bg-white hover:text-black transition">
-            Learn More
+            <Link href="#contact">Learn More</Link>
           </button>
         </div>
       </main>
@@ -48,21 +48,25 @@ export default function LandingPage() {
         className="mt-28 grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl"
       >
         <div className="p-6 bg-white/10 backdrop-blur-md rounded-2xl shadow-md">
-          <h3 className="text-xl font-semibold mb-3">Smart AI Summaries</h3>
+          <h3 className="text-xl font-semibold mb-3">
+            AI-Powered Note Creation
+          </h3>
           <p className="text-gray-200">
-            Turn long notes into concise summaries instantly.
+            Generate ideas and draft notes instantly with your personal AI
+            assistant.
           </p>
         </div>
         <div className="p-6 bg-white/10 backdrop-blur-md rounded-2xl shadow-md">
-          <h3 className="text-xl font-semibold mb-3">Cloud Sync</h3>
+          <h3 className="text-xl font-semibold mb-3">Seamless Management</h3>
           <p className="text-gray-200">
-            Access your notes on any device, anytime.
+            Easily create, edit, save, and delete your notes on a single
+            platform.
           </p>
         </div>
         <div className="p-6 bg-white/10 backdrop-blur-md rounded-2xl shadow-md">
-          <h3 className="text-xl font-semibold mb-3">Organized & Searchable</h3>
+          <h3 className="text-xl font-semibold mb-3">Export and Download</h3>
           <p className="text-gray-200">
-            Find the right note in seconds with AI-powered search.
+            Export any note as a PDF document for offline access.
           </p>
         </div>
       </section>
